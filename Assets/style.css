@@ -1,3 +1,16 @@
+ul{
+    padding:0px;
+}
+
 .col {
     text-align: center;
+}
+
+.btn-margin {
+    text-align: initial !important;
+    margin-bottom:5px
+}
+
+.question-display {
+    display: none;
 }

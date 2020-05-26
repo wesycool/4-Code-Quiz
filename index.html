@@ -5,26 +5,48 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 
-    <link rel="stylesheet" href="Assets/style.css" />
+    <link rel="stylesheet" href="./Assets/style.css" />
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
-    <script src="Assets/script.js"></script>
+    
+    
 </head>
 <body>
 
     <div class="container">
-        <div class="alert alert-light" role="alert">
-            <span class="timer">Timer: 0</span>
+
+
+        <div class="row start-display">
+            <div class="col">
+                <button class="btn btn-primary" id="start">Start</button>
+            </div>
         </div>
 
-        <div class="row">
-            <div class="col">
-                <input class="btn btn-primary" type="button" value="Start">
+
+        <div class="question-display">
+            <div class='row'>
+                <div class="col">
+                    <div class="alert alert-light" role="alert">
+                        <p style="text-align: right;">Timer: <span id="timer">50</span></p>
+                    </div>
+                </div>
+            </div>
+            <div class='row'>
+                <div class="col col-md-9 offset-md-2">
+                    <h1 id='question'>Question</h1>
+                    <ul style="list-style: none">
+                        <li><button type="button" class="btn btn-primary btn-block btn-margin" id='choice1'>Choice 1</button></li>
+                        <li><button type="button" class="btn btn-primary btn-block btn-margin" id='choice2'>Choice 2</button></li>
+                        <li><button type="button" class="btn btn-primary btn-block btn-margin" id='choice3'>Choice 3</button></li>
+                        <li><button type="button" class="btn btn-primary btn-block btn-margin" id='choice4'>Choice 4</button></li>
+                    </ul>
+                    <p id='answer' style='visibility: hidden;'></p>
+                </div>
             </div>
         </div>
         
     </div>
 
-
+    <script src="./Assets/script.js"></script>
 </body>
 </html>
