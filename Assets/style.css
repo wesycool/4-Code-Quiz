@@ -6,11 +6,27 @@ ul{
     text-align: center;
 }
 
+.col-margin {
+    margin-top: 5vh;
+}
+
 .btn-margin {
     text-align: initial !important;
     margin-bottom:5px
 }
 
-.question-display {
+.question-display, .timer-display{
     display: none;
+}
+
+#question {
+    margin-bottom: 1rem ;
+}
+
+.alert {
+    margin-bottom: 0rem !important;
+}
+
+.footer {
+    margin: 5vh;
 }

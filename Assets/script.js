@@ -1,43 +1,63 @@
 // Assignment Code
 var generateBtn = document.querySelector("#start");
+var myTimer = document.querySelector('#timer');
+var histBtn = document.querySelector('#history');
 
-var myScore = {'Correct':0,'Wrong':0}
+var myScore = {'Correct': '+','Wrong': '-'}
 var myChoice = ['choice1','choice2','choice3','choice4']
+var randIndex = 0;
+
 
 // Start Quiz
 function startQuiz(){
-    var timer = setInterval( function (){
-        (document.getElementById('timer').innerHTML == 0)? clearInterval(timer) : document.getElementById('timer').innerHTML--;
-    } , 1000);
-
     document.querySelector('.start-display').style.display = 'none';
+    document.querySelector('.timer-display').style.display = 'inline';
     document.querySelector('.question-display').style.display = 'inline';
+    
+    histBtn.setAttribute('disabled','');
+    myTimer.innerHTML = 50;
 
     randomQ()
+
+    var timer = setInterval( function (){
+        if (Number(myTimer.textContent) > 0 && questions.length != 0) myTimer.textContent--;
+        else {
+            clearInterval(timer);
+            histBtn.removeAttribute('disabled');
+        }
+    } , 1000);
 }
+
 
 // Get Random Question
 function randomQ(){
-    var randIndex = Math.floor(Math.random()* questions.length)
+    randIndex = Math.floor(Math.random() * questions.length)
     var chooseQ = questions[randIndex]
     
     Object.keys(chooseQ).forEach(function(value, index){
         document.querySelector(`#${value}`).textContent = myChoice.includes(value)? `${index}. ${chooseQ[value]}`: chooseQ[value]
     })
-    questions.splice(randIndex,1)
-    console.log(questions)
 }
+
 
 // Get Score on Click
 myChoice.forEach(value => document.querySelector(`#${value}`).addEventListener('click',function(){
-    myScore[(value == document.querySelector('#answer').textContent)? 'Correct' : 'Wrong']++;
-    console.log(myScore)
-    randomQ()
+    var myAnswer = (value == document.querySelector('#answer').textContent)? 'Correct' : 'Wrong';
+    myTimer.textContent = eval(`Number(myTimer.textContent) ${myScore[myAnswer]} 10`);
+    questions.splice(randIndex,1)
+    if(questions != 0) randomQ();
 }))
+
+
+// Get History on Click
+function openHist() {
+    console.log('clicked');
+}
 
 
 // Add event listener to generate button
 generateBtn.addEventListener("click", startQuiz);
+histBtn.addEventListener("click", openHist);
 
 
 // List of Questions
@@ -65,6 +85,14 @@ var questions = [
         'choice3': 'Server-side image maps and Client-side image maps',
         'choice4': 'None of the above',
         'answer': 'choice2'  
+    },
+    {
+        'question': 'Which of the following best describes JavaScript?',
+        'choice1': 'a low-level programming language.',
+        'choice2': 'a scripting language precompiled in the browser.',
+        'choice3': 'a compiled scripting language.',
+        'choice4': 'an object-oriented scripting language.',
+        'answer': 'choice4'  
     }
 
 ]

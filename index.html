@@ -14,26 +14,37 @@
 <body>
 
     <div class="container">
+        <div class="row">
+            <div class="col col-margin">
+                <h1>Coding Quiz</h1>
+            </div>
+        </div>
+
+        <div class="start-display">
+            <div class="row">
+                <div class="col col-md-8 offset-md-2">
+                    <p>Try to answer the following code-related questions within the time limit. Keep in mind that incorrect answers will penalize your score/time by ten seconds.</p>
+                    <button class="btn btn-primary" id="start">Start</button>
+                </div>
+            </div>
+        </div>
 
 
-        <div class="row start-display">
-            <div class="col">
-                <button class="btn btn-primary" id="start">Start</button>
+        <div class="timer-display">
+            <div class='row'>
+                <div class="col col-md-8 offset-md-2">
+                    <div class="alert alert-light" role="alert">
+                        <p>Timer: <span id="timer"></span></p>
+                    </div>
+                </div>
             </div>
         </div>
 
 
         <div class="question-display">
             <div class='row'>
-                <div class="col">
-                    <div class="alert alert-light" role="alert">
-                        <p style="text-align: right;">Timer: <span id="timer">50</span></p>
-                    </div>
-                </div>
-            </div>
-            <div class='row'>
-                <div class="col col-md-9 offset-md-2">
-                    <h1 id='question'>Question</h1>
+                <div class="col col-md-8 offset-md-2">
+                    <h2 id='question'>Question</h2>
                     <ul style="list-style: none">
                         <li><button type="button" class="btn btn-primary btn-block btn-margin" id='choice1'>Choice 1</button></li>
                         <li><button type="button" class="btn btn-primary btn-block btn-margin" id='choice2'>Choice 2</button></li>
@@ -44,6 +55,17 @@
                 </div>
             </div>
         </div>
+
+        
+        <footer class="fixed-bottom footer">
+            <div class="container">
+                <div class="row">
+                    <div class="col">
+                        <button type="button" class="btn btn-primary btn-margin" id='history'>Check History</button>
+                    </div>
+                </div>
+            </div>
+        </footer>
         
     </div>
 
