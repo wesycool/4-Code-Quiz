@@ -1,32 +1,32 @@
 // Assignment Code
-var generateBtn = document.querySelector("#start");
-var myTimer = document.querySelector('#timer');
-var highScoreBtn = document.querySelector('#highscore');
+const highScoreBtn = document.querySelector('#highscore');
+const myTimer = document.querySelector('#timer');
 
 
-var randIndex;
-var correctAnswer;
+let randIndex;
+let correctAnswer;
 
 
 // Start Quiz
 function startQuiz(){
     document.querySelector('.start-display').style.display = 'none';
     document.querySelector('.timer-display').style.display = 'inline';
-    document.querySelector('.question-display').style.display = 'inline';
+    
+    const questionDisplay = document.querySelector('.question-display')
+    questionDisplay.style.display = 'inline';
     highScoreBtn.setAttribute('disabled','');
     
     myTimer.textContent = 100;
     randomQ()
 
-    var runTimer = setInterval( function (){
+    const runTimer = setInterval( function (){
         if (Number(myTimer.textContent) > 0 && questions.length > 35) myTimer.textContent--;
         else {
             clearInterval(runTimer);
 
-            document.querySelector('.question-display').style.display = 'none';
+            questionDisplay.style.display = 'none';
             document.querySelector('.save-display').style.display = 'inline';
             document.querySelector('#saveBtn').addEventListener('click',saveResults)
-
             
         }
     } , 1000);
@@ -49,10 +49,12 @@ function randomQ(){
 
 // Get Score on Click
 document.querySelector('#choice').addEventListener('click', function(){
-    var condition = (event.target.id == correctAnswer);
-    condition? myTimer.textContent = Number(myTimer.textContent) + 10 : myTimer.textContent -= 10;
+    const condition = (event.target.id == correctAnswer);
     
-    var showAnswer = document.querySelector('#answerChoice');
+    if (condition) myTimer.textContent = Number(myTimer.textContent) + 10;
+    else myTimer.textContent -= 10;
+    
+    const showAnswer = document.querySelector('#answerChoice');
     showAnswer.textContent = condition? 'Correct!' : 'Wrong!';
 
     showAnswer.style.visibility = 'visible';
@@ -62,24 +64,26 @@ document.querySelector('#choice').addEventListener('click', function(){
     if(questions.length > 35) randomQ();
 })
 
+
 // Save Results
 function saveResults(){
     event.preventDefault();
 
     if (event.path[1][0].value != ''){
-        if (myTimer.textContent > Number(localStorage.score) || localStorage.length == 0 ) {
+        if (myTimer.textContent > Number(localStorage.score) || !localStorage.score ) {
             localStorage.time = new Date();
             localStorage.initials = event.path[1][0].value;
             localStorage.score = myTimer.textContent;
         }
 
-        var saved = document.querySelector('#saved')
+        const saved = document.querySelector('#saved')
         saved.style.visibility = 'visible';
         setTimeout( function(){saved.style.visibility = 'hidden'},500)
         setTimeout( highScore ,800)
+
+        highScoreBtn.removeAttribute('disabled');
     }
     
-    highScoreBtn.removeAttribute('disabled');
 }
 
 
@@ -94,10 +98,9 @@ function highScore() {
 
 
 // Add event listener to generate button
-generateBtn.addEventListener("click", startQuiz);
-highScoreBtn.addEventListener("click", highScore);
+document.querySelector("#start").addEventListener("click", startQuiz);
 document.querySelector('#exitBtn').addEventListener('click', function(){location.reload();})
-
+highScoreBtn.addEventListener("click", highScore);
 
 // List of Questions
 var questions = [
