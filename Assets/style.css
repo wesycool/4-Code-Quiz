@@ -2,8 +2,8 @@ ul{
     padding:0px;
 }
 
-.col {
-    text-align: center;
+.row {
+    text-align: center !important;
 }
 
 .col-margin {
@@ -15,7 +15,7 @@ ul{
     margin-bottom:5px
 }
 
-.question-display, .timer-display{
+.question-display, .timer-display, .save-display, .highscore-display{
     display: none;
 }
 

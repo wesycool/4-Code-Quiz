@@ -1,11 +1,11 @@
 // Assignment Code
 var generateBtn = document.querySelector("#start");
 var myTimer = document.querySelector('#timer');
-var histBtn = document.querySelector('#history');
+var highScoreBtn = document.querySelector('#highscore');
 
-var myScore = {'Correct': '+','Wrong': '-'}
-var myChoice = ['choice1','choice2','choice3','choice4']
-var randIndex = 0;
+
+var randIndex;
+var correctAnswer;
 
 
 // Start Quiz
@@ -13,17 +13,21 @@ function startQuiz(){
     document.querySelector('.start-display').style.display = 'none';
     document.querySelector('.timer-display').style.display = 'inline';
     document.querySelector('.question-display').style.display = 'inline';
+    highScoreBtn.setAttribute('disabled','');
     
-    histBtn.setAttribute('disabled','');
-    myTimer.innerHTML = 50;
-
+    myTimer.textContent = 50;
     randomQ()
 
-    var timer = setInterval( function (){
+    var runTimer = setInterval( function (){
         if (Number(myTimer.textContent) > 0 && questions.length != 0) myTimer.textContent--;
         else {
-            clearInterval(timer);
-            histBtn.removeAttribute('disabled');
+            clearInterval(runTimer);
+
+            document.querySelector('.question-display').style.display = 'none';
+            document.querySelector('.save-display').style.display = 'inline';
+            document.querySelector('#saveBtn').addEventListener('click',saveResults)
+
+            
         }
     } , 1000);
 }
@@ -31,33 +35,68 @@ function startQuiz(){
 
 // Get Random Question
 function randomQ(){
-    randIndex = Math.floor(Math.random() * questions.length)
-    var chooseQ = questions[randIndex]
-    
-    Object.keys(chooseQ).forEach(function(value, index){
-        document.querySelector(`#${value}`).textContent = myChoice.includes(value)? `${index}. ${chooseQ[value]}`: chooseQ[value]
+    randIndex = Math.floor(Math.random() * questions.length);
+
+    Object.entries(questions[randIndex]).forEach( ([key,value],index) => {
+        switch (key) {
+            case 'answer': correctAnswer = value; break;
+            case 'question': document.querySelector(`#${key}`).textContent = value; break;
+            default: document.querySelector(`#${key}`).textContent = `${index}. ${value}`; break;
+        }
     })
 }
 
 
 // Get Score on Click
-myChoice.forEach(value => document.querySelector(`#${value}`).addEventListener('click',function(){
-    var myAnswer = (value == document.querySelector('#answer').textContent)? 'Correct' : 'Wrong';
-    myTimer.textContent = eval(`Number(myTimer.textContent) ${myScore[myAnswer]} 10`);
-    questions.splice(randIndex,1)
-    if(questions != 0) randomQ();
-}))
+document.querySelector('#choice').addEventListener('click', function(){
+    var condition = (event.target.id == correctAnswer);
+    condition? myTimer.textContent = Number(myTimer.textContent) + 10 : myTimer.textContent -= 10;
+    
+    var showAnswer = document.querySelector('#answerChoice');
+    showAnswer.textContent = condition? 'Correct!' : 'Wrong!';
+
+    showAnswer.style.visibility = 'visible';
+    setTimeout( function(){showAnswer.style.visibility = 'hidden'},1000)
+
+    questions.splice(randIndex,1);
+    if(questions.length != 0) randomQ();
+})
+
+// Save Results
+function saveResults(){
+    event.preventDefault();
+
+    if (event.path[1][0].value != ''){
+        if (myTimer.textContent > Number(sessionStorage.score) || sessionStorage.length == 0 ) {
+            sessionStorage.time = new Date();
+            sessionStorage.initials = event.path[1][0].value;
+            sessionStorage.score = myTimer.textContent;
+        }
+
+        var saved = document.querySelector('#saved')
+        saved.style.visibility = 'visible';
+        setTimeout( function(){saved.style.visibility = 'hidden'},500)
+        setTimeout( highScore ,800)
+    }
+    
+    highScoreBtn.removeAttribute('disabled');
+}
 
 
-// Get History on Click
-function openHist() {
-    console.log('clicked');
+// Get High Score
+function highScore() {
+    document.querySelector('.quiz-display').style.display = 'none'
+    document.querySelector('.highscore-display').style.display = 'inline';
+
+    document.querySelector('#nameHS').textContent = sessionStorage.initials
+    document.querySelector('#scoreHS').textContent = sessionStorage.score
 }
 
 
 // Add event listener to generate button
 generateBtn.addEventListener("click", startQuiz);
-histBtn.addEventListener("click", openHist);
+highScoreBtn.addEventListener("click", highScore);
+document.querySelector('#exitBtn').addEventListener('click', function(){location.reload();})
 
 
 // List of Questions
@@ -94,5 +133,4 @@ var questions = [
         'choice4': 'an object-oriented scripting language.',
         'answer': 'choice4'  
     }
-
-]
+];

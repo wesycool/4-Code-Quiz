@@ -12,7 +12,7 @@
     
 </head>
 <body>
-
+    
     <div class="container">
         <div class="row">
             <div class="col col-margin">
@@ -20,38 +20,70 @@
             </div>
         </div>
 
-        <div class="start-display">
-            <div class="row">
-                <div class="col col-md-8 offset-md-2">
-                    <p>Try to answer the following code-related questions within the time limit. Keep in mind that incorrect answers will penalize your score/time by ten seconds.</p>
-                    <button class="btn btn-primary" id="start">Start</button>
+        <div class='quiz-display'> 
+            <div class="start-display">
+                <div class="row">
+                    <div class="col col-md-8 offset-md-2">
+                        <p>Try to answer the following code-related questions within the time limit. Keep in mind that incorrect answers will penalize your score/time by ten seconds.</p>
+                        <button class="btn btn-primary" id="start">Start</button>
+                    </div>
                 </div>
             </div>
-        </div>
 
 
-        <div class="timer-display">
-            <div class='row'>
-                <div class="col col-md-8 offset-md-2">
-                    <div class="alert alert-light" role="alert">
-                        <p>Timer: <span id="timer"></span></p>
+            <div class="timer-display">
+                <div class='row'>
+                    <div class="col col-md-8 offset-md-2">
+                        <div class="alert alert-light" role="alert">
+                            <p>Timer: <span id="timer"></span></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="question-display">
+                <div class='row'>
+                    <div class="col col-md-8 offset-md-2">
+                        <h2 id='question'>Question</h2>
+                        <ul id='choice' style="list-style: none">
+                            <li><button type="button" class="btn btn-primary btn-block btn-margin" id='choice1'>Choice 1</button></li>
+                            <li><button type="button" class="btn btn-primary btn-block btn-margin" id='choice2'>Choice 2</button></li>
+                            <li><button type="button" class="btn btn-primary btn-block btn-margin" id='choice3'>Choice 3</button></li>
+                            <li><button type="button" class="btn btn-primary btn-block btn-margin" id='choice4'>Choice 4</button></li>
+                        </ul>
+                        <div class="alert alert-light" role="alert">
+                            <p id='answerChoice' style='visibility: hidden;'></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="save-display">
+                <div class="row">
+                    <div class="col-12 col-lg-4 offset-lg-4">
+                        <h3> You've completed the quiz!</h3>
+                        <form class="" id="saveResults">
+                            <div class="form-group mx-sm-3 mb-2">
+                            <label for="inputInitials" class="sr-only">Your Name</label>
+                            <input type="text" class="form-control" id="inputInitials" placeholder="Your Name">
+                            </div>
+                            <button type="submit" class="btn btn-primary mb-2" id='saveBtn'>Save</button>
+                        </form>
+                        <div class="alert alert-light" role="alert">
+                            <p id='saved' style='visibility: hidden;'>Saved!</p>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-
-
-        <div class="question-display">
+        
+        <div class='highscore-display'>
             <div class='row'>
                 <div class="col col-md-8 offset-md-2">
-                    <h2 id='question'>Question</h2>
-                    <ul style="list-style: none">
-                        <li><button type="button" class="btn btn-primary btn-block btn-margin" id='choice1'>Choice 1</button></li>
-                        <li><button type="button" class="btn btn-primary btn-block btn-margin" id='choice2'>Choice 2</button></li>
-                        <li><button type="button" class="btn btn-primary btn-block btn-margin" id='choice3'>Choice 3</button></li>
-                        <li><button type="button" class="btn btn-primary btn-block btn-margin" id='choice4'>Choice 4</button></li>
-                    </ul>
-                    <p id='answer' style='visibility: hidden;'></p>
+                    <h3>High Score</h3>
+                    <p>Name: <span id='nameHS'></span> - Scored: <span id='scoreHS'></span></p>
+                    <button type="button" class="btn btn-primary btn-margin" id='exitBtn'>Close</button>
                 </div>
             </div>
         </div>
@@ -61,7 +93,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col">
-                        <button type="button" class="btn btn-primary btn-margin" id='history'>Check History</button>
+                        <button type="button" class="btn btn-primary btn-margin" id='highscore'>High Score</button>
                     </div>
                 </div>
             </div>
