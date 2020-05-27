@@ -19,7 +19,7 @@ function startQuiz(){
     randomQ()
 
     var runTimer = setInterval( function (){
-        if (Number(myTimer.textContent) > 0 && questions.length != 35) myTimer.textContent--;
+        if (Number(myTimer.textContent) > 0 && questions.length > 35) myTimer.textContent--;
         else {
             clearInterval(runTimer);
 
@@ -59,7 +59,7 @@ document.querySelector('#choice').addEventListener('click', function(){
     setTimeout( function(){showAnswer.style.visibility = 'hidden'},1000)
 
     questions.splice(randIndex,1);
-    if(questions.length != 0) randomQ();
+    if(questions.length > 35) randomQ();
 })
 
 // Save Results
